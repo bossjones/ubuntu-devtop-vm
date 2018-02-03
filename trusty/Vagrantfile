@@ -278,7 +278,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, inline: $docker_script
 
   # shared folder setup
-  config.vm.synced_folder ".", "/home/vagrant/#{VM_NODENAME}", SharedFoldersEnableSymlinksCreate: false
+  config.vm.synced_folder ".", "/home/#{default[:user]}/#{VM_NODENAME}", SharedFoldersEnableSymlinksCreate: false
 
   # TODO: Investigate if we need these other options
   # SOURCE: https://github.com/iflowfor8hours/coreos-jenkins-spike/blob/6da5769c50a98ade62fcf163b98cc100402511da/Vagrantfile
@@ -287,8 +287,8 @@ Vagrant.configure("2") do |config|
 
   # copy private key so hosts can ssh using key authentication (the script below sets permissions to 600)
   config.vm.provision :file do |file|
-    file.source      = './keys/vagrant_id_rsa'
-    file.destination = '/home/vagrant/.ssh/id_rsa'
+    file.source      = "./keys/#{default[:user]}_id_rsa"
+    file.destination = "/home/#{default[:user]}/.ssh/id_rsa"
   end
 
   # fix permissions on private key file
