@@ -86,7 +86,6 @@ SHELL
 $git_clone_dotfiles = <<SHELL
 git clone https://github.com/bossjones/linux-dotfiles.git /home/#{default[:user]}/.dotfiles
 cd /home/#{default[:user]}/.dotfiles/;
-git checkout feature-new-dotfiles-layout
 sudo chown -R #{default[:user]}:#{default[:user]} /home/#{default[:user]}/
 SHELL
 
