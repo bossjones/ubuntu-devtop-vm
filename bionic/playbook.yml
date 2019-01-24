@@ -5,6 +5,7 @@
     zsh_antigen_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized
+      - lukechilds/zsh-nvm
     zsh_autosuggestions_bind_key: "^U"
   roles:
     - viasite-ansible.zsh
