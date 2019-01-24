@@ -1,0 +1,14 @@
+# https://gist.github.com/gnarf/b103e77f37236ca72d8e
+# SOURCE: \cat roles/*/vagrant-config.yml | pbcopy
+:vms:
+  devtop-bionic:
+    :hostname: "devtop-bionic"
+    :name: "devtop-bionic"
+    :type: "master"
+    :box: "ubuntu/bionic64"
+    :eth1: "192.168.10.10"
+    :ip: "192.168.10.10"
+    :mem: 2048
+    :ram: 2048
+    :cpu: 2
+    :id: 10
