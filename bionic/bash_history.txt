@@ -1,0 +1,42 @@
+vagrant@devtop-bionic:/vagrant$ cat ~/.bash_history
+sudo apt-get install ansible -y
+sudo apt-get upgrade
+sudo shutdown -r now
+sudo apt-get upgrade
+ansible --version
+vim sudo apt-get install software-properties-common -y
+git clone https://github.com/samoshkin/tmux-config.git
+./tmux-config/install.sh
+LS
+ls
+vim fix.sh
+bash fix.sh
+sudo apt-mark unhold docker-ce
+sudo apt-mark
+sudo apt-mark showhold
+sudo apt-get upgrade
+sudo apt-get --with-new-pkgs upgrade
+sudo shutdown -r now
+ls
+git clone https://github.com/viasite-ansible/ansible-role-zsh
+sudo ansible-galaxy install viasite-ansible.zsh
+vim playbook.yml
+wget https://raw.githubusercontent.com/bossjones/kubernetes-cluster/master/galaxy/requirements.yml
+wget https://raw.githubusercontent.com/bossjones/kubernetes-cluster/feature-borg-lab/playbooks/vagrant_playbook.yml
+vim vagrant_playbook.yml
+ifconfig
+vim vagrant_playbook.yml
+sudo pip install mitogen
+ls -lta /home/vagrant/.cache/
+mkdir -p /home/vagrant/.cache/pip/http
+sudo pip install mitogen
+sudo chown -Rv vagrant:vagrant ~/
+sudo pip install mitogen
+ls /usr/local/lib/python2.7/dist-packages/ansible_mitogen/plugins/strategy
+ls /etc/ansible/roles
+cd /vagrant/
+ls
+ls -lta
+ext
+exit
+vagrant@devtop-bionic:/vagrant$

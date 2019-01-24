@@ -64,3 +64,15 @@ tests/.cache/
 tests/__pycache__/
 playbook.retry
 *.log
+
+
+
+kail_0.7.0_linux_amd64.tar.gz
+kube-prompt_v1.0.5_linux_amd64.zip
+kubespy-linux-amd64.tar.gz
+peco_linux_amd64.tar.gz
+peco_linux_amd64/
+
+wildcard.behance.net.crt
+wildcard.behance.net.csr
+wildcard.behance.net.key
