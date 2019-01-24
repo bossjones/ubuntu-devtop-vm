@@ -39,4 +39,22 @@ ls
 ls -lta
 ext
 exit
+vim ~/.bashrc ~/.bash_profile
+exit
+vim ~/.bashrc ~/.bash_profile
+ls -lta ~/.fzf
+clear
+ls /usr/share/zsh-config/
+ls
+ls -lya
+ls -lta
+sudo vagrant:vagrant -Rv ~vagrant/
+sudo chown vagrant:vagrant -Rv ~vagrant/
+clear
+xit
+exit
+env
+env | grep SHELL
+cd /vagrant/
+exit
 vagrant@devtop-bionic:/vagrant$
