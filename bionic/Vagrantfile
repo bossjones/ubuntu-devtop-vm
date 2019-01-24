@@ -75,6 +75,10 @@ EOF
     mkdir -p ~vagrant/dev
     sudo chown vagrant:vagrant -Rv ~vagrant
     git clone https://github.com/viasite-ansible/ansible-role-zsh ~/dev/ansible-role-zsh
+    sudo apt-get install software-properties-common -y
+    sudo apt-add-repository ppa:ansible/ansible -y
+    sudo apt-get update
+    sudo apt-get install ansible -y
 SCRIPT
 
 Vagrant.configure(2) do |config|
