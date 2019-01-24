@@ -72,6 +72,9 @@ EOF
 
     sudo sysctl -w vm.min_free_kbytes=1024000
     sudo sync; sudo sysctl -w vm.drop_caches=3; sudo sync
+    mkdir -p ~vagrant/dev
+    sudo chown vagrant:vagrant -Rv ~vagrant
+    git clone https://github.com/viasite-ansible/ansible-role-zsh ~/dev/ansible-role-zsh
 SCRIPT
 
 Vagrant.configure(2) do |config|

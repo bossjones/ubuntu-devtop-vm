@@ -63,4 +63,4 @@ __pycache__
 tests/.cache/
 tests/__pycache__/
 playbook.retry
-
+*.log
