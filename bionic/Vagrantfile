@@ -51,19 +51,19 @@ $configureBox = <<-SCRIPT
     modprobe br_netfilter
 
     cat <<EOF >/etc/modules-load.d/k8s_ip_vs.conf
-    ip_vs_wrr
-    ip_vs_rr
-    ip_vs_sh
-    ip_vs
-    nf_conntrack_ipv4
+ip_vs_wrr
+ip_vs_rr
+ip_vs_sh
+ip_vs
+nf_conntrack_ipv4
 EOF
 
     cat <<EOF >/etc/modules-load.d/k8s_bridge.conf
-    bridge
+bridge
 EOF
 
     cat <<EOF >/etc/modules-load.d/k8s_br_netfilter.conf
-    br_netfilter
+br_netfilter
 EOF
     # NOTE: https://medium.com/@muhammadtriwibowo/set-permanently-ulimit-n-open-files-in-ubuntu-4d61064429a
     # TODO: Put into playbook
@@ -98,6 +98,7 @@ Vagrant.configure(2) do |config|
       vm_config.vbguest.auto_update = true
 
       vm_config.vm.box = settings[:box]
+      vm_config.disksize.size = '20GB'
 
       # config.vm.box_version = settings[:box_version]
       vm_config.vm.network 'private_network', ip: settings[:eth1]
@@ -132,7 +133,7 @@ Vagrant.configure(2) do |config|
         vm_config.hostmanager.aliases = aliases
       end
 
-      vm_config.vm.provision 'shell', inline: $configureBox
+      # vm_config.vm.provision 'shell', inline: $configureBox
     end
   end
 end
