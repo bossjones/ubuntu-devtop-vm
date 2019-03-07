@@ -65,16 +65,54 @@ EOF
     cat <<EOF >/etc/modules-load.d/k8s_br_netfilter.conf
 br_netfilter
 EOF
+
+    echo "* soft     nproc          500000" > /etc/security/limits.d/perf.conf
+    echo "* hard     nproc          500000" >> /etc/security/limits.d/perf.conf
+    echo "* soft     nofile         500000" >> /etc/security/limits.d/perf.conf
+    echo "* hard     nofile         500000"  >> /etc/security/limits.d/perf.conf
+    echo "root soft     nproc          500000" >> /etc/security/limits.d/perf.conf
+    echo "root hard     nproc          500000" >> /etc/security/limits.d/perf.conf
+    echo "root soft     nofile         500000" >> /etc/security/limits.d/perf.conf
+    echo "root hard     nofile         500000" >> /etc/security/limits.d/perf.conf
+    sed -i '/pam_limits.so/d' /etc/pam.d/sshd
+    echo "session    required   pam_limits.so" >> /etc/pam.d/sshd
+    sed -i '/pam_limits.so/d' /etc/pam.d/su
+    echo "session    required   pam_limits.so" >> /etc/pam.d/su
+    sed -i '/session required pam_limits.so/d' /etc/pam.d/common-session
+    echo "session required pam_limits.so" >> /etc/pam.d/common-session
+    sed -i '/session required pam_limits.so/d' /etc/pam.d/common-session-noninteractive
+    echo "session required pam_limits.so" >> /etc/pam.d/common-session-noninteractive
     # NOTE: https://medium.com/@muhammadtriwibowo/set-permanently-ulimit-n-open-files-in-ubuntu-4d61064429a
     # TODO: Put into playbook
-    echo "65535" | sudo tee /proc/sys/fs/file-max
-    echo "session required pam_limits.so" | sudo tee -a /etc/pam.d/common-session
+    echo "2097152" | sudo tee /proc/sys/fs/file-max
+
+    apt-get install -y conntrack ipset
 
     sudo sysctl -w vm.min_free_kbytes=1024000
     sudo sync; sudo sysctl -w vm.drop_caches=3; sudo sync
+
+
+    echo 1 >/sys/kernel/mm/ksm/run
+    echo 1000 >/sys/kernel/mm/ksm/sleep_millisecs
+
+    # SOURCE: https://blog.openai.com/scaling-kubernetes-to-2500-nodes/ ( VERY GOOD )
+
+    echo "vm.min_free_kbytes=1024000" | sudo tee -a /etc/sysctl.d/kube.conf
+    echo "net.ipv4.neigh.default.gc_thresh1 = 80000" | sudo tee -a /etc/sysctl.d/kube.conf
+    echo "net.ipv4.neigh.default.gc_thresh2 = 90000" | sudo tee -a /etc/sysctl.d/kube.conf
+    echo "net.ipv4.neigh.default.gc_thresh3 = 100000" | sudo tee -a /etc/sysctl.d/kube.conf
+    # echo "sys.kernel.mm.ksm.run = 1" | sudo tee -a /etc/sysctl.d/kube.conf
+    # echo "sys.kernel.mm.ksm.sleep_millisecs = 1000" | sudo tee -a /etc/sysctl.d/kube.conf
+    echo "fs.file-max = 2097152" | sudo tee -a /etc/sysctl.d/kube.conf
+    sysctl -p
+
+
     mkdir -p ~vagrant/dev
-    sudo chown vagrant:vagrant -Rv ~vagrant
     git clone https://github.com/viasite-ansible/ansible-role-zsh ~/dev/ansible-role-zsh
+    git clone https://github.com/bossjones/docker-kernel-ide ~/dev/docker-kernel-ide
+    git clone https://github.com/bossjones/debug-tools /usr/local/src/debug-tools
+    /usr/local/src/debug-tools/update-bossjones-debug-tools
+    sudo chown vagrant:vagrant -Rv ~vagrant
     sudo apt-get install software-properties-common -y
     sudo apt-add-repository ppa:ansible/ansible -y
     sudo apt-get update
@@ -133,7 +171,7 @@ Vagrant.configure(2) do |config|
         vm_config.hostmanager.aliases = aliases
       end
 
-      # vm_config.vm.provision 'shell', inline: $configureBox
+      vm_config.vm.provision 'shell', inline: $configureBox
     end
   end
 end
